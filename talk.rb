@@ -18,7 +18,13 @@ string = word
 
 #8.times do
 until word == "EOS"
-word = dict_pair.shuffle.assoc(word)[1]
+  #要素がnilだとエラーになるので、そのときは終わらせる
+  begin
+    word = dict_pair.shuffle.assoc(word)[-1]
+  rescue
+    puts "やっぱりバカバカしいからやめましょう"
+    exit
+  end
   if word == "EOS"
     break
   else
@@ -26,7 +32,3 @@ word = dict_pair.shuffle.assoc(word)[1]
   end
 end
 p string
-
-##
-##これからやることEOSが出たら終わりにする
-##

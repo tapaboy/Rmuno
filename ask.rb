@@ -76,15 +76,15 @@ morpheme = input_string.parse
 #２文節づつ組にして保存
 morpheme.each_index do |index|
   pair = Array.new([morpheme[index],morpheme[index+1]])
-  next if pair[0] == "@" || pair[1] == "@"
   dict_pair << pair
 end
 #重複する要素を取り除く
 dict_pair.uniq!
 
 #適宜ゴミを取り除く
-dict_pair.delete_if{|x| x[0] == "\\ "}
-dict_pair.delete_if{|x| x[1] == "\\ "}
+dict_pair.delete_if{|x| x[0] == %!@!}
+dict_pair.delete_if{|x| x[1] == %!@!}
+dict_pair.delete_if{|x| x[1] == nil}
 
 #【確認用】
 #p dict_noun
@@ -92,7 +92,7 @@ dict_pair.delete_if{|x| x[1] == "\\ "}
 #p dict_noun_time
 #p dict_noun_place
 #p dict_noun_sahen
-#p dict_noun.join
+
 #p dict_pair
 
 YAML.dump(dict_noun,File.open("dict/noun.yaml", "w"))
