@@ -73,17 +73,19 @@ end
 morpheme = input_string.parse
 #p morpheme
 
-#２文節づつ組にして保存
+#6文節づつ組にして保存
 morpheme.each_index do |index|
-  pair = Array.new([morpheme[index],morpheme[index+1]])
+  pair = Array.new(morpheme[index,6])
   dict_pair << pair
 end
 #重複する要素を取り除く
 dict_pair.uniq!
+p dict_pair
 
-#適宜ゴミとnilを取り除く
-dict_pair.delete_if{|x| x[0] == %!@!}
-dict_pair.delete_if{|x| x[1] == %!@!}
+#時々発生するゴミ("@")とnilを取り除く
+dict_pair.each do |a|
+  a.delete_if{|v| v == %!@!}
+end
 dict_pair.compact!
 
 #【確認用】
