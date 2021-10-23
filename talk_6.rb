@@ -19,16 +19,19 @@ next_phrase = []
 
 until word == "EOS"
   next_phrase = dict_sextet.shuffle.assoc(word)
+  if next_phrase.any?("。")
+    next_phrase.pop(next_phrase.reverse.index("。"))
+  end
   phrase.concat (next_phrase[1..-1])
-  word = next_phrase[-1]
+  if phrase.last == "。"
+    break
+  end
+  word = next_phrase.last
 end
 
-phrase.delete_at -1
+phrase.delete("EOS")
 
 puts phrase.join
 
-###
-###無限ループしてしまう
-###
 
 

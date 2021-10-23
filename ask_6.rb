@@ -80,11 +80,13 @@ morpheme.each_index do |index|
 end
 #重複する要素を取り除く
 dict_sextet.uniq!
+
 p dict_sextet
 
-#時々発生するゴミ("@")とnilを取り除く
+#時々発生するゴミ("@")とnilを取り除く（「%」の前はスベースを入れること）
 dict_sextet.each do |a|
-  a.delete_if{|v| v == %!@!}
+#  a.delete_if{|v| v == %!@!}
+  a.delete( %!@! )
 end
 dict_sextet.compact!
 
