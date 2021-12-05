@@ -29,9 +29,9 @@ rescue
 end
 
 begin
-  dict_pair = YAML.load_file"dict/pair.yaml"
+  dict_sextet = YAML.load_file"dict/sextet.yaml"
 rescue
-  dict_pair = []
+  dict_sextet = []
 end
 
 
@@ -40,7 +40,7 @@ end
 #p dict_noun_place
 #p dict_noun_sahen
 #p dict_noun_time
-#p dict_pair
+#p dict_sextet
 
 #入力を促す
 puts "ちょっと、今日は何してたか話しなさいよ。別にあなたのことを知りたいわけじゃないのよ。ただのヒマつぶしよ。"
@@ -73,18 +73,22 @@ end
 morpheme = input_string.parse
 #p morpheme
 
-#２文節づつ組にして保存
+#6文節づつ組にして保存
 morpheme.each_index do |index|
-  pair = Array.new([morpheme[index],morpheme[index+1]])
-  dict_pair << pair
+  sextet = Array.new(morpheme[index,6])
+  dict_sextet << sextet
 end
 #重複する要素を取り除く
-dict_pair.uniq!
+dict_sextet.uniq!
 
-#適宜ゴミとnilを取り除く
-dict_pair.delete_if{|x| x[0] == %!@!}
-dict_pair.delete_if{|x| x[1] == %!@!}
-dict_pair.compact!
+p dict_sextet
+
+#時々発生するゴミ("@")とnilを取り除く（「%」の前はスベースを入れること）
+dict_sextet.each do |a|
+#  a.delete_if{|v| v == %!@!}
+  a.delete( %!@! )
+end
+dict_sextet.compact!
 
 #【確認用】
 #p dict_noun
@@ -93,7 +97,7 @@ dict_pair.compact!
 #p dict_noun_place
 #p dict_noun_sahen
 
-p dict_pair
+p dict_sextet
 
 #辞書をファイルに保存（もしファイルがなければ作成する）
 YAML.dump(dict_noun,File.open("dict/noun.yaml", "w"))
@@ -102,4 +106,4 @@ YAML.dump(dict_noun_time,File.open("dict/noun_time.yaml", "w"))
 YAML.dump(dict_noun_sahen,File.open("dict/noun_sahen.yaml", "w"))
 YAML.dump(dict_noun_place,File.open("dict/noun_place.yaml", "w"))
 
-YAML.dump(dict_pair,File.open("dict/pair.yaml", "w"))
+YAML.dump(dict_sextet,File.open("dict/sextet.yaml", "w"))
