@@ -19,6 +19,10 @@ next_phrase = []
 
 until word == "EOS"
   next_phrase = dict_sextet.shuffle.assoc(word)
+  if next_phrase == nil
+    puts "#{word}は#{word}よ。"
+    break
+  end
   if next_phrase.any?("。")
     next_phrase.pop(next_phrase.reverse.index("。"))
   end
