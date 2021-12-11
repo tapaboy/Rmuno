@@ -22,11 +22,10 @@ end
 
 # ウィンドウを表示する。
 
+yome_talk = "何か用？"
+
 view = View.new
-#view.show_all
-
-#Gtk.main
-
+view.yome(yome_talk)
 
 
 
