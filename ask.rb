@@ -19,7 +19,9 @@ class Ask
   end
 
   #入力を促す
-  puts "ちょっと、今日は何してたか話しなさいよ。別にあなたのことを知りたいわけじゃないのよ。ただのヒマつぶしよ。"
+  def ask
+    yome = "ちょっと、今日は何してたか話しなさいよ。別にあなたのことを知りたいわけじゃないのよ。ただのヒマつぶしよ。"
+  end
   print "言葉を入力してください>"
   #入力を変数に格納
   input_string = gets.chomp
@@ -85,4 +87,4 @@ class Ask
 
 end
 
-Ask.new
+puts Ask.new.ask
