@@ -2,6 +2,7 @@ require 'jumanpp_ruby'
 require 'yaml'
 require "gtk3"
 require "./gui"
+require "./ask"
 
 # 初期設定
 dict_noun = []
@@ -22,7 +23,7 @@ end
 
 # ウィンドウを表示する。
 
-yome_talk = "何か用？"
+yome_talk = Ask.new.yome
 
 view = View.new
 view.yome(yome_talk)
