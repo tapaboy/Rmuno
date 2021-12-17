@@ -35,28 +35,22 @@ class TranparentWindow < Gtk::Window
 end
 
 class View < TranparentWindow
-  def initialize
-    @view = TranparentWindow.new
-    @view.set_default_size(300, 300)
-    @text_area = Gtk::TextView.new
-    @text_area.set_size_request(100, 30)
-    @text_area.buffer.text = '我はひよこなり！汝、我の前にひれ伏せ'
+  def initialize (yome='何か用？')
+    view = TranparentWindow.new
+    view.set_default_size(300, 300)
+    text_area = Gtk::TextView.new
+    text_area.set_size_request(100, 30)
+    text_area.buffer.text = yome
 
     scrolled_area = Gtk::ScrolledWindow.new
     scrolled_area.set_size_request(100, -1)
     scrolled_area.set_policy(:automatic, :never)  # スクロールバー；横は自動、縦は表示しない。
-    scrolled_area.add(@text_area) 
-
-    def put_text(entry, textview)
-      textview.buffer.text = "#{entry.text}\n"  # Entryの内容をTextVeiwのテキストに表示
-      entry.text = ''     # Entryの文字を消す
-      entry.grab_focus    # ボタンをクリックしてもフォーカスをEntryに戻す
-    end
+    scrolled_area.add(text_area) 
 
     entry_area = Gtk::Entry.new
     entry_area.set_size_request(100, -1)
     entry_area.signal_connect("activate") do
-      put_text(entry_area, @text_area)
+      put_text(entry_area, text_area)
     end
 
     entry_area.overwrite_mode=(true)
@@ -77,17 +71,18 @@ class View < TranparentWindow
     fixed.put(scrolled_area, 100,200)
     fixed.put(box, 50,235)
     fixed.put(button, 100, 270)
-    @view.add(fixed)
+    view.add(fixed)
 
-    @view.show_all
+    view.show_all
     Gtk.main
   end
 
-  def yome (yome_talk)
-    @text_area.buffer.text = yome_talk
-    Gtk.main_quit
-    @view.show_all
-    Gtk.main
-    p yome_talk
+
+  def put_text (entry, textview)
+    ore_talk = entry.text
+    textview.buffer.text = "だから何？\n"  # 
+    entry.text = ''     # Entryの文字を消す
+    entry.grab_focus    # ボタンをクリックしてもフォーカスをEntryに戻す
   end
+
 end

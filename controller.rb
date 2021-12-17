@@ -23,12 +23,9 @@ end
 
 # ウィンドウを表示する。
 
-yome_talk = Ask.new.yome
+yome = 'めんどくさい'
 
-view = View.new
-view.yome(yome_talk)
-
-
+view = View.new (yome)
 
 
 #辞書をファイルに保存（もしファイルがなければ作成する）
