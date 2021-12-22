@@ -6,6 +6,9 @@ require "./ask"
 #立ち絵画像は、「三日月アルペジオ」（http://roughsketch.en-grey.com/）さんから
 #頂いたものを元にしています。
 
+#dictディレクトリがなければ作成する（初回限定）。
+Dir.mkdir ("./dict") unless Dir.exist?("./dict") 
+
 #ここからウィンドウ描画
 #ウィンドウ透過のための設定
 class TranparentWindow < Gtk::Window
@@ -62,11 +65,6 @@ class View < TranparentWindow
     end
     entry_area.overwrite_mode=(true)
 
-#    box = Gtk::Box.new(:horizontal)
-#    label = Gtk::Label.new('何か言ってみ')
-#    box.pack_start(label, :expand => false, :fill => false, :padding => 0)
-#    box.pack_start(entry_area, :expand => false, :fill => false, :padding => 0)
-
     button = Gtk::Button.new(:label => '自爆')
     button.set_size_request(100, 20)
     button.signal_connect("clicked") {Gtk.main_quit}
@@ -75,7 +73,6 @@ class View < TranparentWindow
     bgimage = Gtk::Image.new(pixbuf: bgpxbuf)
 
     fixed = Gtk::Fixed.new
-#    fixed.put(bgimage, 0, 340)
     fixed.put(bgimage, 0, 340)
     fixed.put(scrolled_area, 0,580)
     fixed.put(entry_area, 0, 640)
@@ -85,7 +82,6 @@ class View < TranparentWindow
     view.show_all
     Gtk.main
   end
-
 
   def put_text (entry, textview)
     ore_talk = entry.text
