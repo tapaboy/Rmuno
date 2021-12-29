@@ -1,14 +1,13 @@
 require 'jumanpp_ruby'
 require 'yaml'
 
-class Ask
-  #入力を促す
-  def yome (yome_talk = "ちょっと、今日は何してたか話しなさいよ。別にあなたのことを知りたいわけじゃないのよ。ただのヒマつぶしよ。")
-    return yome_talk
-  end
-end
 
 class StoreWords
+  #入力を促す（当面は使わないけど）。
+  def ask (yome_talk = "ちょっと、今日は何してたか話しなさいよ。別にあなたのことを知りたいわけじゃないのよ。ただのヒマつぶしよ。")
+    return yome_talk
+  end
+
   def get_words (input_string)
     # 辞書用変数を作成する。
     $dict_noun = []
@@ -68,6 +67,7 @@ class StoreWords
     $dict_sextet.each do |a|
       a.delete( %!@! )
     end
+    $dict_sextet.delete(["EOS"])
     $dict_sextet.compact!
 
     #【確認用】
